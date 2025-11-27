@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Todo</title>
+        <link rel="stylesheet" href="./style.css">
+        <script src="./script.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <h1>Task Manager</h1>
+        </header>
+        <main> 
+            <section class="todo">
+                <h2>To-do List</h2>
+                
+                <!-- Planning Message - PLACED BELOW THE H2 -->
+                <div class="planning-message">
+                    <p><strong>Rememder:</strong> Set the due date to tomorrow to schedule tasks for the next day</p>
+                </div>
+
+                <div class="input-container">
+                     <div class="input-row">  
+                        <input 
+                            type="text" 
+                            class="input-field" 
+                            placeholder="Add a new todo"
+                            id="todoInput"
+                        />
+                        <button class="btn" id="btn">Add</button>
+                    </div>
+                    <div class="additional-inputs">
+                        <input 
+                            type="date"
+                            class="input-field date-input"
+                            id="dueDate"
+                        />
+                        <select class="category-select" id="category">
+                            <option value="personal">Personal</option>
+                            <option value="work">Work</option>
+                            <option value="school">School</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+                    <div id="error-message" class="error-message"></div>
+                </div>
+                
+                <!-- Loading State -->
+                <div id="loadingState" class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>Loading your tasks...</p>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">📝</div>
+                    <h3>No tasks planned</h3>
+                    <p>Start by adding a new task above</p>
+                </div>
+
+                <!-- Tasks List -->
+                <div class="tasks-container">
+                    <ul class="scroll" id="taskListContainer">
+                        <li id="todoList"></li>
+                    </ul>
+                </div>
+                
+                <div class="counter-section">
+                    <hr class="counter">
+                    <div class="counter-container">
+                        <p><span id="todoCount">0</span> total |
+                            <span id="completedCount">0</span> completed
+                        </p>
+                        <button id="deleteButton">Delete All</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <div class="footer">
+                <p class="made-by">Made By</p>
+                <p class="author">Hamid Mdala</p>
+            </div>
+        </footer>
+    </body>
+</html>
