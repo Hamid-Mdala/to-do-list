@@ -946,7 +946,7 @@ footer {
     .overdue {
         max-width: 100px;
     }
-    .delete-btn {
+        .delete-btn {
         width: 32px;
         height: 32px;
         padding: 0.4rem;
@@ -955,5 +955,267 @@ footer {
     .delete-icon {
         width: 12px;
         height: 12px;
+    }
+}
+
+
+/* High Pixel Density Devices (300+ PPI) */
+@media (-webkit-min-device-pixel-ratio: 2), 
+       (min-resolution: 192dpi), 
+       (min-resolution: 2dppx) {
+    
+    /* Scale up base font size for better readability */
+    body {
+        font-size: 18px;
+    }
+    
+    /* Increase container sizes */
+    .todo {
+        max-width: 600px;
+        padding: 3rem;
+    }
+    
+    /* Larger touch targets */
+    .btn {
+        min-height: 50px;
+        padding: 1.2rem 2rem;
+        font-size: 1.2rem;
+    }
+    
+    .input-field, .date-input, .category-select {
+        min-height: 50px;
+        font-size: 1.2rem;
+        padding: 1.2rem;
+    }
+    
+    /* Larger interactive elements */
+    .delete-btn {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+        min-height: 46px;
+    }
+    
+    .delete-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    /* Larger checkboxes */
+    .checkmark {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .checkmark:after {
+        left: 9px;
+        top: 4px;
+        width: 8px;
+        height: 14px;
+    }
+    
+    /* Larger text in todo items */
+    .todo-text {
+        font-size: 1.3rem;
+    }
+    
+    .category-badge, .due-date {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+    
+    /* Adjust scroll area */
+    .scroll {
+        height: 350px;
+    }
+}
+
+/* Very High Pixel Density Devices (400+ PPI - 4K, Retina Displays) */
+@media (-webkit-min-device-pixel-ratio: 3), 
+       (min-resolution: 288dpi), 
+       (min-resolution: 3dppx) {
+    
+    body {
+        font-size: 20px;
+    }
+    
+    .todo {
+        max-width: 650px;
+        padding: 3.5rem;
+    }
+    
+    .btn {
+        min-height: 55px;
+        padding: 1.4rem 2.2rem;
+    }
+    
+    .scroll {
+        height: 380px;
+    }
+}
+
+/* Normal Pixel Density Devices (below 200 PPI) */
+@media (-webkit-max-device-pixel-ratio: 1.25), 
+       (max-resolution: 119dpi), 
+       (max-resolution: 1.25dppx) {
+    
+    /* Ensure minimum sizes for low density screens */
+    body {
+        font-size: 16px;
+    }
+    
+    .btn, .input-field, .date-input, .category-select {
+        min-height: 44px; /* WCAG accessibility minimum */
+    }
+    
+    .delete-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+/* Universal density-independent sizing using viewport units */
+.todo {
+    width: min(90vw, 550px); /* Use viewport width with max limit */
+}
+
+header h1 {
+    font-size: clamp(2rem, 8vw, 2.8rem); /* Fluid typography */
+}
+
+.todo h2 {
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+}
+
+.btn {
+    font-size: clamp(1rem, 4vw, 1.1rem);
+    padding: clamp(0.8rem, 3vw, 1rem) clamp(1.2rem, 4vw, 1.8rem);
+}
+
+.input-field, .date-input, .category-select {
+    font-size: clamp(1rem, 4vw, 1.1rem);
+    padding: clamp(0.8rem, 3vw, 1rem) clamp(1rem, 3vw, 1.2rem);
+}
+
+/* Density-independent spacing */
+.todo {
+    gap: clamp(1.2rem, 4vw, 1.8rem);
+    padding: clamp(1.5rem, 6vw, 2.5rem);
+}
+
+.todo-item {
+    padding: clamp(1rem, 3vw, 1.25rem);
+    min-height: clamp(70px, 20vw, 90px);
+}
+
+/* Mobile adjustments for all densities */
+@media (max-width: 480px) {
+    /* Override high-density settings for mobile */
+    @media (-webkit-min-device-pixel-ratio: 2), 
+           (min-resolution: 192dpi) {
+        body {
+            font-size: 17px; /* Slightly larger but mobile-appropriate */
+        }
+        
+        .todo {
+            padding: 2rem;
+            max-width: 95%;
+        }
+        
+        .btn, .input-field, .date-input, .category-select {
+            min-height: 48px; /* Balance between density and mobile */
+        }
+        
+        .delete-btn {
+            width: 44px;
+            height: 44px;
+        }
+    }
+    
+    /* Normal density mobile */
+    body {
+        font-size: 16px;
+        padding: 1rem;
+    }
+    
+    .todo {
+        padding: 1.8rem;
+        gap: 1.5rem;
+        max-width: 95%;
+    }
+    
+    .scroll {
+        height: min(280px, 50vh); /* Use viewport height */
+    }
+}
+
+/* Very small screens with any density */
+@media (max-width: 360px) {
+    /* High density very small screens */
+    @media (-webkit-min-device-pixel-ratio: 2) {
+        body {
+            font-size: 16px;
+        }
+        
+        .todo {
+            padding: 1.5rem;
+        }
+        
+        .btn, .input-field, .date-input, .category-select {
+            min-height: 44px;
+        }
+    }
+    
+    /* All very small screens */
+    .todo {
+        padding: 1.2rem;
+        gap: 1.2rem;
+    }
+    
+    .scroll {
+        height: min(250px, 45vh);
+    }
+    
+    .todo-item {
+        min-height: clamp(65px, 25vw, 80px);
+    }
+}
+
+/* Tablet and larger screens density handling */
+@media (min-width: 768px) {
+    @media (-webkit-min-device-pixel-ratio: 2) {
+        .todo {
+            max-width: 650px;
+            padding: 3rem;
+        }
+        
+        .scroll {
+            height: 400px;
+        }
+    }
+}
+
+/* Ensure consistent rendering across densities */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Prevent zoom on high density iOS devices */
+@media (-webkit-min-device-pixel-ratio: 2) and (max-width: 480px) {
+    .input-field, .date-input, .category-select {
+        font-size: 16px; /* Prevent iOS zoom */
+    }
+}
+
+/* Density-aware border rendering */
+@media (-webkit-min-device-pixel-ratio: 2) {
+    .todo {
+        border-width: 0.5px;
+    }
+    
+    .category-badge, .due-date {
+        border-width: 1px;
     }
 }
