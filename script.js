@@ -181,7 +181,7 @@ function displayTasks() {
                     </span>
                     <span class="due-date ${isOverdue ? 'overdue' : ''}">
                         ${dueDateText}
-                        ${isOverdue ? ' (miss!)' : ''}
+                        ${isOverdue ? ' miss!' : ''}
                     </span>
                 </div>
             </div>
