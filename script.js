@@ -341,12 +341,43 @@ function updateTaskCounter() {
 function formatDateDisplay(dateString) {
     if (!dateString) return 'No due date';
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-        month: 'short', 
-        day: 'numeric', 
-        year: 'numeric' 
-    });
+    
+    // Check if mobile screen
+    const isMobile = window.innerWidth <= 480;
+    
+    if (isMobile) {
+        // Compact format for mobile: "MMM DD" or "MMM DD, YY"
+        const currentYear = new Date().getFullYear();
+        const taskYear = date.getFullYear();
+        
+        if (taskYear === currentYear) {
+            return date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric'
+            });
+        } else {
+            return date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                year: '2-digit'
+            });
+        }
+    } else {
+        // Full format for desktop
+        return date.toLocaleDateString('en-US', { 
+            month: 'short', 
+            day: 'numeric', 
+            year: 'numeric'
+        });
+    }
 }
+
+// Update date display when window is resized
+window.addEventListener('resize', function() {
+    if (todo.length > 0) {
+        displayTasks();
+    }
+});
 
 function saveToLocalStorage() {
     localStorage.setItem("todo", JSON.stringify(todo));
