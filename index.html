@@ -44,6 +44,35 @@
                             <option value="others">Others</option>
                         </select>
                     </div>
+                    <!-- Edit Modal -->
+                    <div id="editModal" class="edit-modal">
+                        <div class="edit-modal-content">
+                            <h3>Edit Task</h3>
+                            <form id="editForm" class="edit-form">
+                                <div class="edit-input-group">
+                                    <label for="editTaskText">Task Description</label>
+                                    <input type="text" id="editTaskText" class="edit-input" required placeholder="Add a new todo">
+                                </div>
+                                <div class="edit-input-group">
+                                    <label for="editDueDate">Due Date</label>
+                                    <input type="date" id="editDueDate" class="edit-input">
+                                </div>
+                                <div class="edit-input-group">
+                                    <label for="editCategory">Category</label>
+                                    <select id="editCategory" class="edit-input">
+                                        <option value="personal">Personal</option>
+                                        <option value="work">Work</option>
+                                        <option value="school">School</option>
+                                        <option value="others">Others</option>
+                                    </select>
+                                </div>
+                                <div class="edit-modal-actions">
+                                    <button type="button" id="cancelEdit" class="cancel-btn">Cancel</button>
+                                    <button type="submit" class="save-btn">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <div id="error-message" class="error-message"></div>
                 </div>
                 

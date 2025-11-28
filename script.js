@@ -15,6 +15,12 @@ const loadingState = document.getElementById("loadingState");
 const emptyState = document.getElementById("emptyState");
 const taskListContainer = document.getElementById("taskListContainer");
 
+// Edit modal elements (will be null until HTML is added)
+let editModal, editForm, editTaskText, editDueDate, editCategory, cancelEdit;
+
+// Edit state
+let currentEditIndex = -1;
+
 // Initialize application
 document.addEventListener("DOMContentLoaded", function() {
     // Show loading state initially
@@ -36,8 +42,42 @@ function initializeApp() {
     });
     deleteButton.addEventListener("click", deleteAllTasks);
     
+    // Initialize edit modal elements safely
+    initializeEditModal();
+    
     // Load and display tasks
     loadTasks();
+}
+
+function initializeEditModal() {
+    editModal = document.getElementById("editModal");
+    editForm = document.getElementById("editForm");
+    editTaskText = document.getElementById("editTaskText");
+    editDueDate = document.getElementById("editDueDate");
+    editCategory = document.getElementById("editCategory");
+    cancelEdit = document.getElementById("cancelEdit");
+    
+    // Only add event listeners if elements exist
+    if (editForm) {
+        editForm.addEventListener("submit", saveEdit);
+    }
+    if (cancelEdit) {
+        cancelEdit.addEventListener("click", closeEditModal);
+    }
+    if (editModal) {
+        editModal.addEventListener("click", function(e) {
+            if (e.target === this) {
+                closeEditModal();
+            }
+        });
+    }
+    
+    // Close modal with Escape key
+    document.addEventListener("keydown", function(e) {
+        if (e.key === 'Escape') {
+            closeEditModal();
+        }
+    });
 }
 
 function showLoadingState() {
@@ -146,6 +186,12 @@ function displayTasks() {
                 </div>
             </div>
             <div class="todo-actions">
+                <button class="edit-btn" onclick="openEditModal(${i})" title="Edit task">
+                    <svg class="edit-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                </button>
                 <button class="delete-btn" onclick="deleteTask(${i})" title="Delete task">
                     <svg class="delete-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M3 6h18"></path>
@@ -162,6 +208,63 @@ function displayTasks() {
     }
     
     updateTaskCounter();
+}
+
+// Edit functionality
+function openEditModal(index) {
+    // Check if edit modal is available
+    if (!editModal) {
+        alert("Edit feature not available. Please add the edit modal HTML.");
+        return;
+    }
+    
+    currentEditIndex = index;
+    const task = todo[index];
+    
+    // Populate form with current values
+    editTaskText.value = task.text;
+    editDueDate.value = task.dueDate || '';
+    editCategory.value = task.category || 'personal';
+    
+    // Show modal
+    editModal.classList.add("show");
+}
+
+function closeEditModal() {
+    if (editModal) {
+        editModal.classList.remove("show");
+    }
+    currentEditIndex = -1;
+}
+
+function saveEdit(event) {
+    event.preventDefault();
+    
+    if (currentEditIndex === -1) return;
+    
+    const newText = editTaskText.value.trim();
+    const newDueDate = editDueDate.value;
+    const newCategory = editCategory.value;
+    
+    if (!newText) {
+        alert("Task description cannot be empty!");
+        return;
+    }
+    
+    if (newText.length > 100) {
+        alert("Task name is too long (max 100 characters)");
+        return;
+    }
+    
+    // Update the task
+    todo[currentEditIndex].text = newText;
+    todo[currentEditIndex].dueDate = newDueDate;
+    todo[currentEditIndex].category = newCategory;
+    
+    // Save and refresh
+    saveToLocalStorage();
+    displayTasks();
+    closeEditModal();
 }
 
 function toggleTaskCompletion(index) {
@@ -218,7 +321,7 @@ function showError(message) {
 
 function clearError() {
     errorMessage.textContent = "";
-    todoInput.style.borderColor = "#475569"; // Dark theme border color
+    todoInput.style.borderColor = "#475569";
 }
 
 function updateTaskCounter() {
